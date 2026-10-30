@@ -41,14 +41,11 @@ def baseline_model():
             Conv2D(32, (3, 3), padding="same", activation="relu"),
             MaxPooling2D((2, 2)),
             Conv2D(64, (3, 3), padding="same", activation="relu"),
-            Conv2D(64, (3, 3), padding="same", activation="relu"),
-            MaxPooling2D((2, 2)),
-        
             Conv2D(128, (3, 3), padding="same", activation="relu"),
                                         #too much pooling loses information, so we can reduce the number of pooling layers
             Flatten(),
             # Assuming your previous layer has a lot of inputs (like an image)
-            Dense(512, activation="relu"),
+            Dense(128, activation="relu"),
             Dropout(0.3),  # Add dropout for regularization
             # Dense(512, activation="relu"),   Too many layers can lead to overfitting, so we can reduce the number of dense layers
             # Dropout(0.5),  # Add dropout for regularization
