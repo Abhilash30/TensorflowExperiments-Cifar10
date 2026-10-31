@@ -57,7 +57,7 @@ def baseline_inception_model():
 if __name__ == "__main__":
     model = baseline_inception_model()
     model.summary()
-    History = model.fit(x_train, y_train, epochs=15, validation_data=(x_test, y_test))
+    History = model.fit(x_train, y_train, epochs=50, validation_data=(x_test, y_test))
 
     
 
