@@ -46,7 +46,8 @@ def baseline_inception_model():
     x = Conv2D(32, (3, 3), padding="same", activation="relu")(x)
     x = MaxPooling2D((2, 2))(x)
     x = inception_module(x, f1=32, f3=64, f5=32, fp=32)  # out: 16x16x128
-    x = Flatten()(x)
+    # x = GlobalAveragePooling2D()(x)  # out: 128 #losses too much information, so we will use flatten instead
+    x = Flatten()(x)  # out: 32768
     x = Dense(128, activation="relu")(x)
     x = Dropout(0.3)(x)
     out = Dense(num_classes, activation="softmax")(x)
@@ -57,7 +58,7 @@ def baseline_inception_model():
 if __name__ == "__main__":
     model = baseline_inception_model()
     model.summary()
-    History = model.fit(x_train, y_train, epochs=50, validation_data=(x_test, y_test))
+    History = model.fit(x_train, y_train, epochs=100, validation_data=(x_test, y_test))
 
     
 
@@ -74,7 +75,7 @@ if __name__ == "__main__":
     # Plot training & validation loss values
     plt.subplot(1, 2, 2)
     plt.plot(History.history["loss"])
-    plt.plot(History.history["val_loss"])
+    plt.plot(History.history["val_loss"])   
     plt.title("Model loss")
     plt.ylabel("Loss")
     plt.xlabel("Epoch")
